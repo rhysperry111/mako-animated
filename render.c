@@ -106,7 +106,7 @@ static int render_notification(cairo_t *cairo, struct mako_state *state,
 		(style->width <= state->width) ? style->width : state->width;
 
 
-	int animation_offset = notif_width - floor((notif_width / config->animation_count) * animation_frame);
+	int animation_offset = notif_width - floor((notif_width / state->config.animation_count) * animation_frame);
 
 	// offset_x is for the entire draw operation inside the surface
 	int offset_x;

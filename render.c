@@ -93,7 +93,7 @@ static void set_font_options(cairo_t *cairo, struct mako_state *state) {
 
 static int render_notification(cairo_t *cairo, struct mako_state *state,
 		struct mako_style *style, const char *text, struct mako_icon *icon, int offset_y, int scale,
-		struct mako_hotspot *hotspot, int progress) {
+		struct mako_hotspot *hotspot, int progress, int animation_frame) {
 	int border_size = 2 * style->border_size;
 	int padding_height = style->padding.top + style->padding.bottom;
 	int padding_width = style->padding.left + style->padding.right;
@@ -108,11 +108,12 @@ static int render_notification(cairo_t *cairo, struct mako_state *state,
 	// offset_x is for the entire draw operation inside the surface
 	int offset_x;
 	if (state->config.anchor & ZWLR_LAYER_SURFACE_V1_ANCHOR_RIGHT) {
-		offset_x = state->width - notif_width - style->margin.right;
+		offset_x = state->width - notif_width - style->margin.right + animation_frame;
 	} else if (state->config.anchor & ZWLR_LAYER_SURFACE_V1_ANCHOR_LEFT) {
-		offset_x = style->margin.left;
+		offset_x = style->margin.left - animation_frame;
 	} else { // CENTER has nothing to & with, so it's the else case
 		offset_x = (state->width - notif_width) / 2;
+		offset_y -= animation_frame;
 	}
 
 	// text_x is the offset of the text inside our draw operation
@@ -374,7 +375,7 @@ int render(struct mako_state *state, struct pool_buffer *buffer, int scale) {
 		struct mako_icon *icon = (style->icons) ? notif->icon : NULL;
 		int notif_height = render_notification(
 			cairo, state, style, text, icon, total_height, scale,
-			&notif->hotspot, notif->progress);
+			&notif->hotspot, notif->progress, notif->animation_frame);
 		free(text);
 
 		total_height += notif_height;
@@ -422,7 +423,7 @@ int render(struct mako_state *state, struct pool_buffer *buffer, int scale) {
 		format_text(style.format, text, format_hidden_text, &data);
 
 		int hidden_height = render_notification(
-			cairo, state, &style, text, NULL, total_height, scale, NULL, 0);
+			cairo, state, &style, text, NULL, total_height, scale, NULL, 0, 0);
 		free(text);
 		finish_style(&style);
 

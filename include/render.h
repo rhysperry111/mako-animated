@@ -3,6 +3,6 @@
 
 struct mako_state;
 
-int render(struct mako_state *state, struct pool_buffer *buffer, int scale);
+int render(struct mako_state *state, struct pool_buffer *buffer, int scale, int animation_frame);
 
 #endif

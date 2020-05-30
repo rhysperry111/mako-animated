@@ -28,6 +28,7 @@ struct mako_notification {
 	uint32_t id;
 	int group_index;
 	int group_count;
+	int animation_frame;
 
 	char *app_name;
 	char *app_icon;

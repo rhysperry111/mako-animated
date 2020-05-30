@@ -42,7 +42,6 @@ void reset_notification(struct mako_notification *notif) {
 	destroy_timer(notif->timer);
 	notif->timer = NULL;
 
-	free(notif->animation_frame);
 	free(notif->app_name);
 	free(notif->app_icon);
 	free(notif->summary);
@@ -54,7 +53,6 @@ void reset_notification(struct mako_notification *notif) {
 		free(notif->image_data);
 	}
 
-	notif->animation_frame = NULL;
 	notif->app_name = NULL;
 	notif->app_icon = NULL;
 	notif->summary = NULL;

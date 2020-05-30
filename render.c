@@ -105,15 +105,18 @@ static int render_notification(cairo_t *cairo, struct mako_state *state,
 	int notif_width =
 		(style->width <= state->width) ? style->width : state->width;
 
+
+	int animation_offset = notif_width - floor((notif_width / 100) * animation_frame);
+
 	// offset_x is for the entire draw operation inside the surface
 	int offset_x;
 	if (state->config.anchor & ZWLR_LAYER_SURFACE_V1_ANCHOR_RIGHT) {
-		offset_x = state->width - notif_width - style->margin.right + animation_frame;
+		offset_x = state->width - notif_width - style->margin.right + animation_offset;
 	} else if (state->config.anchor & ZWLR_LAYER_SURFACE_V1_ANCHOR_LEFT) {
-		offset_x = style->margin.left - animation_frame;
+		offset_x = style->margin.left - animation_offset;
 	} else { // CENTER has nothing to & with, so it's the else case
 		offset_x = (state->width - notif_width) / 2;
-		offset_y -= animation_frame;
+		offset_y -= animation_offset;
 	}
 
 	// text_x is the offset of the text inside our draw operation

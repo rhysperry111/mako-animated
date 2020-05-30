@@ -54,6 +54,8 @@ void init_default_config(struct mako_config *config) {
 	config->output = strdup("");
 	config->layer = ZWLR_LAYER_SHELL_V1_LAYER_TOP;
 
+	config->animation_count = 100;
+	config->animation_step = 1;
 	config->max_visible = 5;
 	config->max_history = 5;
 	config->sort_criteria = MAKO_SORT_CRITERIA_TIME;
@@ -385,7 +387,11 @@ bool apply_superset_style(
 
 static bool apply_config_option(struct mako_config *config, const char *name,
 		const char *value) {
-	if (strcmp(name, "max-visible") == 0) {
+	if (strcmp(name, "animation-count") == 0) {
+                return parse_int(value, &config->animation_count);
+        } else if (strcmp(name, "animation-step") == 0) {
+                return parse_int(value, &config->animation_step);
+        } else if (strcmp(name, "max-visible") == 0) {
 		return parse_int(value, &config->max_visible);
 	} else if (strcmp(name, "max-history") == 0) {
 		return parse_int(value, &config->max_history);
@@ -737,6 +743,8 @@ int parse_config_arguments(struct mako_config *config, int argc, char **argv) {
 		{"markup", required_argument, 0, 0},
 		{"actions", required_argument, 0, 0},
 		{"format", required_argument, 0, 0},
+                {"animation-count", required_argument, 0, 0},
+                {"animation-step", required_argument, 0, 0},
 		{"max-visible", required_argument, 0, 0},
 		{"max-history", required_argument, 0, 0},
 		{"history", required_argument, 0, 0},

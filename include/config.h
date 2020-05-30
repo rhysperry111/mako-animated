@@ -81,6 +81,8 @@ struct mako_style {
 struct mako_config {
 	struct wl_list criteria; // mako_criteria::link
 
+	int animation_count;
+	int animation_step;
 	int32_t max_visible;
 	int32_t max_history;
 	char *output;

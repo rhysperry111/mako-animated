@@ -39,6 +39,8 @@ static const char usage[] =
 	"                                      execution.\n"
 	"      --format <format>               Format string.\n"
 	"      --hidden-format <format>        Format string.\n"
+	"      --animation-count <n>           Number of animation steps.\n"
+	"      --animation-step <n>            Number of steps to move each frame\n"
 	"      --max-visible <n>               Max number of visible notifications.\n"
 	"      --max-history <n>               Max size of history buffer.\n"
 	"      --history <0|1>                 Add expired notificatinos to history.\n"

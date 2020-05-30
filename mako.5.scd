@@ -16,6 +16,18 @@ Empty lines and lines that begin with # are ignored.
 
 # GLOBAL CONFIGURATION OPTIONS
 
+*animation-count* = _n_
+	Set the amount of animation steps to take during animations. A higher value
+	will mean a longer animation
+
+	Default = 100
+
+*animation-step* = _n_
+	The number of steps taken in each animation frame. A higher value will mean
+	a smoother animation
+
+	Default 1
+
 *max-visible* = _n_
 	Set maximum number of visible notifications to _n_. Older notifications will
 	be hidden. If -1, all notifications are visible.
